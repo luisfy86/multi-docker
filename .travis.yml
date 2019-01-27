@@ -16,8 +16,8 @@ after_success:
   #Log in to docker
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   #Take the images and push them to docker hub
-  - docker push luisfy/multi-client
-  - docker push luisfy/multi-nginx
-  - docker push luisfy/multi-server
-  - docker push luisfy/multi-worker
+  - docker push luisfy/multi-client:latest
+  - docker push luisfy/multi-nginx:latest
+  - docker push luisfy/multi-server:latest
+  - docker push luisfy/multi-worker:latest
 
