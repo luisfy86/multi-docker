@@ -1,0 +1,36 @@
+{
+	"AWSEBDockerrunVersion": 2,
+	"containerDefinitions":  [
+		{
+			"name": "client",
+			"image": "luisfy/multi-client",
+			"hostname": "client",
+			"essential": false
+		},
+		{
+			"name": "server",
+			"image": "luisfy/multi-server",
+			"hostname": "server",
+			"essential": false
+		},
+		{
+			"name": "worker",
+			"image": "luisfy/multi-worker",
+			"hostname": "worker",
+			"essential": true
+		},
+		{
+			"name": "nginx",
+			"image": "luisfy/multi-nginx",
+			"hostname": "nginx",
+			"essential": true,
+			"portMappings": [
+				{
+					"hostPort": 80,
+					"containerPort": 80
+				}
+			],
+			"links": ["client", "server"]
+		}
+	]
+}
