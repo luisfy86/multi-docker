@@ -3,21 +3,21 @@ services:
   - docker
 
 before_install:
-  - docker build -t luisfy/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t "$DOCKER_USERNAME"/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run luisfy/react-test npm test -- --coverage
+  - docker run "$DOCKER_USERNAME"/react-test npm test -- --coverage
 
 after_success:
-  - docker build -t luisfy/multi-client ./client
-  - docker build -t luisfy/multi-nginx ./nginx 
-  - docker build -t luisfy/multi-server ./server 
-  - docker build -t luisfy/multi-worker ./multi-worker 
+  - docker build -t "$DOCKER_USERNAME"/multi-client ./client
+  - docker build -t "$DOCKER_USERNAME"/multi-nginx ./nginx 
+  - docker build -t "$DOCKER_USERNAME"/multi-server ./server 
+  - docker build -t "$DOCKER_USERNAME"/multi-worker ./multi-worker 
   #Log in to docker
-  #- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   #Take the images and push them to docker hub
-  - docker push luisfy/multi-client:latest
-  - docker push luisfy/multi-nginx:latest
-  - docker push luisfy/multi-server:latest
-  - docker push luisfy/multi-worker:latest
+  - docker push "$DOCKER_USERNAME"/multi-client:latest
+  - docker push "$DOCKER_USERNAME"/multi-nginx:latest
+  - docker push "$DOCKER_USERNAME"/multi-server:latest
+  - docker push "$DOCKER_USERNAME"/multi-worker:latest
 
