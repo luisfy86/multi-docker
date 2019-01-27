@@ -21,15 +21,3 @@ after_success:
   - docker push luisfy/multi-server:latest
   - docker push luisfy/multi-worker:latest
 
-deploy:
-  provider: elasticbeanstalk
-  region: us-east-2
-  app: multi-docker
-  env: MultiDocker-env-1
-  bucket_name: elasticbeanstalk-us-east-2-195995829288
-  bucker_path: docker-multi
-  on:
-    branch: master
-  access_key_id: $AWS_ACCESS_KEY
-  secret_access_key:
-    secure: $AWS_SECRET_KEY
