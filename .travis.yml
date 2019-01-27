@@ -12,7 +12,7 @@ after_success:
   - docker build -t luisfy/multi-client ./client
   - docker build -t luisfy/multi-nginx ./nginx 
   - docker build -t luisfy/multi-server ./server 
-  - docker build -t luisfy/multi-worker ./multi-worker 
+  - docker build -t luisfy/multi-worker ./worker 
   #Log in to docker
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   #Take the images and push them to docker hub
