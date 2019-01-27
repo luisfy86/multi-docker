@@ -1,0 +1,23 @@
+sudo: required
+services:
+	- docker
+
+before_install:
+  - docker biuild -t luisfy/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run luify/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t luisfy/multi-client ./client
+  - docker build -t luisfy/multi-nginx ./nginx 
+  - docker build -t luisfy/multi-server ./server 
+  - docker build -t luisfy/multi-worker ./multi-worker 
+  #Log in to docker
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  #Take the images and push them to docker hub
+  - docker push luisfy/multi-client
+  - docker push luisfy/multi-nginx
+  - docker push luisfy/multi-server
+  - docker push luisfy/multi-worker
+
